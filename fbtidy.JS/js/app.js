@@ -1,8 +1,7 @@
-﻿define("app", ["domReady", "bootstrap", "TxExplorerView", "common/utils", "templateHelpers", "common/statusBox", "common/globalEvents"],
-    function (domReady, $, TxExplorerView, utils, templateHelpers, statusBox, globalEvents) {
+﻿define("app", ["domReady", "bootstrap", "common/utils", "common/statusBox", "common/globalEvents"],
+    function (domReady, $, utils, statusBox, globalEvents) {
     "use strict";
 
-    var txExplorerView;
 
     domReady(function () {
         utils.log(["Loaded on: ", new Date()]);
@@ -13,9 +12,5 @@
         templateHelpers.registerAll(utils);
 
         $("#footer .statusBox").statusBox();
-
-        var explorerElement = $("#main .txExplorer").first();
-        txExplorerView = new TxExplorerView(explorerElement);
-        txExplorerView.refresh();
     });
 });

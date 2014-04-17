@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "requirejs": "latest",
-    "jquery": "latest",
+    "jquery": "1.*",
     "requirejs-domready": "latest",
     "javascript-debug": "latest",
     "lodash": "latest",

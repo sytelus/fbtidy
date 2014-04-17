@@ -7,7 +7,7 @@
         jqueryui: ["//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js", "ext/jquery-ui/ui/jquery-ui"] ,
         */
         "lodash": "ext/lodash/dist/lodash",
-        "jquery": "ext/jquery/jquery",
+        "jquery": "ext/jquery/dist/jquery",
         "domReady": "ext/requirejs-domready/domReady",
         "bootstrap": "ext/bootstrap/dist/js/bootstrap",
         //"jqueryui": "ext/jquery-ui/ui/jquery-ui",
@@ -28,7 +28,7 @@
         "json3": "ext/json3/lib/json3",
         "knockout": "ext/knockoutjs/build/output/knockout",
         "mousetrap": "ext/mousetrap/mousetrap",
-        "typeahead": "ext/typeahead.js/dist/typeahead"
+        "typeahead": "ext/typeahead.js/dist/typeahead.bundle"
     },
     shim: {
         "debug": {
