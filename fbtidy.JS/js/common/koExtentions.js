@@ -25,6 +25,19 @@
                             });
                 }
             };
+        },
+
+        appendToObservableArray: function (observableArray, newNativeArray) {
+            var array = observableArray();
+            ko.utils.arrayPushAll(array, newNativeArray);
+            observableArray.valueHasMutated();
+        },
+
+        repopulateObservableArray: function (observableArray, newNativeArray) {
+            var array = observableArray();
+            array.length = 0;
+            ko.utils.arrayPushAll(array, newNativeArray);
+            observableArray.valueHasMutated();
         }
     };
 });

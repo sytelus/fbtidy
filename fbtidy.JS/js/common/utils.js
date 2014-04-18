@@ -90,6 +90,10 @@
             return new $.Deferred();
         },
 
+        isDeferredPending: function(deferred) {
+            return deferred && deferred.state() === "pending";
+        },
+
         boolToDeferredPromise: function (value) {
             //If not already a deferred object?
             if (!utilsInstance.isDeferredPromise(value)) {
@@ -283,6 +287,12 @@
         },
         toNativeDate: function(value) {
             return value.toDate();
+        },
+        subtractDates: function(date1, date2) {
+            return moment.subtract(date1, date2).milliseconds();
+        },
+        millisecondsSince: function(dateSince) {
+            return moment().subtract(dateSince).milliseconds();
         },
         getMD5Hash: function(valueString) {
             var hash = CryptoJS.MD5(valueString);

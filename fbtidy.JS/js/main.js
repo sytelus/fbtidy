@@ -28,7 +28,8 @@
         "json3": "ext/json3/lib/json3",
         "knockout": "ext/knockoutjs/build/output/knockout",
         "mousetrap": "ext/mousetrap/mousetrap",
-        "typeahead": "ext/typeahead.js/dist/typeahead.bundle"
+        "typeahead": "ext/typeahead.js/dist/typeahead.bundle",
+        "facebook": "//connect.facebook.net/en_US/all"
     },
     shim: {
         "debug": {
@@ -74,6 +75,9 @@
         },
         "uuidjs": {
             exports: "UUIDjs"
+        },
+        "facebook": {
+                exports: "FB"
         }
     }
 });
