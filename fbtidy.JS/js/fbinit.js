@@ -1,14 +1,12 @@
 ﻿define("FBInit", ["facebook", "common/utils"], function (FB, utils) {
     "use strict";
 
-    var FBInit = function (appId) {
+    var FBInit = function (appId, onConnected, onDisconnected) {
         FB.init({
             appId: appId,
             status: true,
             xfbml: true
         });
-
-        var deferred = utils.createDeferred();
 
         // Here we subscribe to the auth.authResponseChange JavaScript event. This event is fired
         // for any authentication related change, such as login, logout or session refresh. This means that
@@ -20,7 +18,10 @@
                 // The response object is returned with a status field that lets the app know the current
                 // login status of the person. In this case, we"re handling the situation where they 
                 // have logged in to the app.
-                deferred.resolve(response);
+                onConnected(response);
+            }
+            else {
+                onDisconnected(response);
             }
             //else if (response.status === "not_authorized") {
             //    // In this case, the person is logged into Facebook, but not into the app, so we call
@@ -41,7 +42,17 @@
             //}
         });
 
-        return deferred.promise();
+        FB.getLoginStatus(function (response) {
+            if (response.status === "connected") {
+                // The response object is returned with a status field that lets the app know the current
+                // login status of the person. In this case, we"re handling the situation where they 
+                // have logged in to the app.
+                onConnected(response);
+            }
+            else {
+                onDisconnected(response);
+            }
+        });
     };
 
     var FBInitPrototype = (function () {

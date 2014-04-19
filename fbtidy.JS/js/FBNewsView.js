@@ -8,7 +8,7 @@
         self.newsData = new FBNewsData();
         self.fbNewsFetcher = new FBNewsFetcher(self.newsData);
 
-        ko.applyBindings(self.newsData, self.hostElement);
+        ko.applyBindings({ newsData: self.newsData, newsFetcher: self.fbNewsFetcher }, self.hostElement);
     };
 
     var FBNewsViewPrototype = (function () {

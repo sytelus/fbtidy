@@ -44,7 +44,7 @@
         });
 
         //Activate bootstrap tooltips
-        $(document.body).tooltip({ selector: "[title]" });
+        //$(document.body).tooltip({ selector: "[title]" });
 
         ////Global errors
         //var previousGlobalErrorHandler = window.onerror;

@@ -10,7 +10,7 @@
         var fetchDataFBSdk = function () {
                 var deferred = utils.createDeferred();
 
-                FB.api("/me/home", function (response) {
+                FB.api("/me/home", {limit:200}, function (response) {
                     if (response && !response.error) {
                         deferred.resolve(response);
                     }
@@ -42,18 +42,19 @@
         return {
             reset: function() {
                 this.error = ko.observable();
-                this.progress = ko.observable();
+                this.isInProgress = ko.observable(false);
+                this.hasMoreResults = ko.observable(true);
                 this.nextPageCursor = undefined;
                 this.deferredPromise = undefined;
             },
-            fetchNext: function () {
-                var self = this;
+            fetchNext: function (thisArg) { //ko passes parameter for button click
+                var self = this || thisArg;
 
                 if (utils.isDeferredPending(self.deferredPromise)) {
                     return self.deferredPromise;
                 }
 
-                self.progress("Getting data from Facebook...");
+                self.isInProgress(true);
                 utils.log("Getting data from Facebook...", 5, "info");
 
                 self.deferredPromise = self.nextPageCursor ? 
@@ -62,19 +63,21 @@
 
                 self.deferredPromise
                 .done(function (response) {
-                    utils.log(["Recieved posts", response.length], 5, "success");
                     self.error(undefined);
 
-                    self.fbNewsData.mergePosts(response);
+                    var newPostCount = self.fbNewsData.mergePosts(response);
 
-                    self.nextPageCursor = response.paging && response.paging.next;
+                    utils.log(["Recieved posts", response.data.length, "new posts", newPostCount], 5, "success");
+
+                    self.nextPageCursor = (response.paging && response.paging.next) || null;
+                    self.hasMoreResults(self.nextPageCursor !== null);
                 })
                 .fail(function (response) {
                     utils.log(["Failed to get posts", response.error.message], 0, "error");
                     self.error(response);
                 })
                 .always(function () {
-                    self.progress(undefined);
+                    self.isInProgress(false);
                 });
 
                 return self.deferredPromise;

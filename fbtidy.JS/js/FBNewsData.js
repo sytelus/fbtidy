@@ -35,6 +35,8 @@
                     utils.forEach(self.tabs, function (koArray) { koArray.valueHasMutated(); });
                     utils.log(["New posts", newPostCount], 10, "info");
                 }
+
+                return newPostCount;
             }
         };
     })();
