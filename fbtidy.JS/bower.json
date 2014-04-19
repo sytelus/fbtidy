@@ -25,6 +25,8 @@
     "knockoutjs": "git://github.com/sytelus/knockout#78bf1c1d8fbd9be1e92abf97949885dc6ff9a7ab",
     "mousetrap": "latest",
     "typeahead.js": "latest",
-	"typeahead-less": "git://github.com/hyspace/typeahead.js-bootstrap3.less"
+    "typeahead-less": "git://github.com/hyspace/typeahead.js-bootstrap3.less",
+    "URIjs": "latest",
+    "false": "latest"
   }
 }

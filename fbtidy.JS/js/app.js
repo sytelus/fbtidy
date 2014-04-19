@@ -9,7 +9,7 @@
     domReady(function () {
         utils.log(["Loaded on: ", new Date()]);
 
-        var fbInit = new FBInit("241567999362524", "read_stream");
+        var fbInit = new FBInit("241567999362524");
         
         fbInit.done(function () {
             fbNewsView = new FBNewsView($("#news").first()[0]);

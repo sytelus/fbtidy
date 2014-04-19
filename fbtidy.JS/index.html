@@ -67,7 +67,7 @@
                 <a class="navbar-brand" href="#">fbTidy</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ol class="nav navbar-nav">
                     <li class="active"><a href="#">Home</a></li>
                     <li><a href="#tour">Tour</a></li>
                     <li class="dropdown">
@@ -84,7 +84,7 @@
                     <li><a href="#tour">Support</a></li>
                     <li><a href="#tour">Forums</a></li>
                     <li><a href="#tour">Help</a></li>
-                </ul>
+                </ol>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <fb:login-button data-scope="read_stream" autologoutlink="true" size="small" show-faces="true" max-rows="1">Login with Facebook</fb:login-button>
@@ -100,11 +100,33 @@
         <div class="container-fluid">
             <div class="row">
                 <div id="news">
-                    <ul data-bind="foreach: posts">
-                        <li>
-                            <strong data-bind="text: from.name"></strong> <span data-bind="text: displayMessage()"></span>
-                        </li>
-                    </ul>       
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#news_important" data-toggle="tab">1stThing</a></li>
+                        <li><a href="#news_photos" data-toggle="tab">Photos</a></li>
+                        <li><a href="#news_fun" data-toggle="tab">Fun</a></li>
+                        <li><a href="#news_informative" data-toggle="tab">Informative</a></li>
+                        <li><a href="#news_doings" data-toggle="tab">Doings</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="news_important">
+                            <div data-bind="template: { name: 'postsTemplate', data: $data.posts.important}"></div>
+                        </div>
+                        <div class="tab-pane" id="news_photos">
+                            <div data-bind="template: { name: 'postsTemplate', data: $data.posts.photos}"></div>
+                        </div>
+                        <div class="tab-pane" id="news_fun">
+                            <div data-bind="template: { name: 'postsTemplate', data: $data.posts.fun}"></div>
+                        </div>
+                        <div class="tab-pane" id="news_informative">
+                            <div data-bind="template: { name: 'postsTemplate', data: $data.posts.informative}"></div>
+                        </div>
+                        <div class="tab-pane" id="news_doings">
+                            <div data-bind="template: { name: 'postsTemplate', data: $data.posts.doings}"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -117,7 +139,49 @@
         <div class="text-right">Copyrights <a href="http://fbTidy.com"><strong>fbTidy.com</strong></a></div>
     </footer>
 
-    <!-- Main -->
-    <script data-main="js/main" src="js/ext/requirejs/require.js"></script>
+    <!-- ko templates -->
+    <script type="text/html" id="postsTemplate">
+        <ol class="posts-list" data-bind="foreach: $data">
+            <li>
+                <p>
+                    <img data-bind="attr: { src: icon}" />
+                    <strong data-bind="text: from.name"></strong>
+                    <span data-bind="text: message"></span>
+                </p>
+                <p>
+                    <small>
+                        <span data-bind="text: displayDate"></span>
+                        <span data-bind="text: statusType"></span>
+                        <span data-bind="text: story"></span>
+                        <span data-bind="if: to">
+                            <span data-bind="text: to.name"></span>
+                        </span>
+                         <span data-bind="text: id"></span> 
+                    </small>
+                    Link: <div data-bind="if: link">
+                        Name: <span data-bind="text: link.name"></span>
+                        Caption: <span data-bind="text: link.caption"></span>
+                        URL: <span data-bind="text: link.url"></span>
+                        Desc: <span data-bind="text: link.description"></span>
+                        prev: <img data-bind="attr: { src: link.preview}" />
+                    </div>
+                    <div data-bind="if: attachment">
+                        URL: <span data-bind="text: attachment.url"></span>
+                        Type: <span data-bind="text: attachment.type"></span>
+                        Properties: <ul data-bind="foreach: attachment.properties">
+                            <li>
+                                PName: <span data-bind="text: name"></span>
+                                PText: <span data-bind="text: text"></span>
+                                PHref: <span data-bind="text: href"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </p>
+            </li>
+        </ol>
+    </script>
+
+        <!-- Main -->
+        <script data-main="js/main" src="js/ext/requirejs/require.js"></script>
 </body>
 </html>

@@ -33,6 +33,7 @@
     <Content Include="js\common\globalEvents.js" />
     <Content Include="js\FBInit.js" />
     <Content Include="js\FBNewsData.js" />
+    <Content Include="js\FBPost.js" />
     <Content Include="js\userProfile.js" />
     <Content Include="js\TemplateConstructorFunctions.js" />
     <Content Include="js\common\utils.js" />

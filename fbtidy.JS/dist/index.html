@@ -1,0 +1,43 @@
+<!DOCTYPE html><!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]--><!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]--><!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]--><!--[if gt IE 8]><!--><html lang="en"><!--<![endif]--><head><meta charset="utf-8"><!-- Ask browser to use best compatibility mode --><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><!-- TODO: Is this good? Ask browser to not cache --><meta http-equiv="Cache-Control" content="no-cache, private, pre-check=0, post-check=0, max-age=0"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><title>fbTidy</title><meta name="description" content="Personal Finance with Smarts"><!-- generic feature phones --><meta name="HandheldFriendly" content="True"><!-- old WIndows feature phones --><meta name="MobileOptimized" content="320"><!-- smartphones --><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="cleartype" content="on"><link type="text/css" rel="stylesheet" href="css/app.min.css"><!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries --><!-- WARNING: Respond.js doesn't work if you view the page via file:// --><!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]--><body><!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]--><!-- Required by Facebook JavaScript SDK --><div id="fb-root"></div><!-- Top nav bar --><div class="navbar navbar-inverse navbar-static-top" role="navigation"><div class="container"><div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="navbar-brand" href="#">fbTidy</a></div><div class="navbar-collapse collapse"><ol class="nav navbar-nav"><li class="active"><a href="#">Home</a></li><li><a href="#tour">Tour</a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Plans<b class="caret"></b></a><ul class="dropdown-menu"><li><a href="#">Free!</a></li><li class="divider"></li><li class="dropdown-header">Get even more</li><li><a href="#">Professional</a></li><li><a href="#">Ultimate</a></li></ul></li><li><a href="#tour">Blog</a></li><li><a href="#tour">Support</a></li><li><a href="#tour">Forums</a></li><li><a href="#tour">Help</a></li></ol><ul class="nav navbar-nav navbar-right"><li class="dropdown"><fb:login-button data-scope="read_stream" autologoutlink="true" size="small" show-faces="true" max-rows="1">Login with Facebook</fb:login-button></li><li><a href="#"><i class="glyphicon glyphicon-lock"></i> Logout</a></li></ul></div><!--/.nav-collapse --></div></div><!-- Main --><div id="main"><div class="container-fluid"><div class="row"><div id="news"><!-- Nav tabs --><ul class="nav nav-tabs"><li class="active"><a href="#news_important" data-toggle="tab">1stThing</a></li><li><a href="#news_photos" data-toggle="tab">Photos</a></li><li><a href="#news_fun" data-toggle="tab">Fun</a></li><li><a href="#news_informative" data-toggle="tab">Informative</a></li><li><a href="#news_doings" data-toggle="tab">Doings</a></li></ul><!-- Tab panes --><div class="tab-content"><div class="tab-pane active" id="news_important"><div data-bind="template: { name: 'postsTemplate', data: $data.posts.important}"></div></div><div class="tab-pane" id="news_photos"><div data-bind="template: { name: 'postsTemplate', data: $data.posts.photos}"></div></div><div class="tab-pane" id="news_fun"><div data-bind="template: { name: 'postsTemplate', data: $data.posts.fun}"></div></div><div class="tab-pane" id="news_informative"><div data-bind="template: { name: 'postsTemplate', data: $data.posts.informative}"></div></div><div class="tab-pane" id="news_doings"><div data-bind="template: { name: 'postsTemplate', data: $data.posts.doings}"></div></div></div></div></div></div></div><!-- /Main --><footer id="footer"><div class="statusBox"></div><div class="text-right">Copyrights <a href="http://fbTidy.com"><strong>fbTidy.com</strong></a></div></footer><!-- ko templates --><script type="text/html" id="postsTemplate"><ol class="posts-list" data-bind="foreach: $data">
+            <li>
+                <p>
+                    <img data-bind="attr: { src: icon}" />
+                    <strong data-bind="text: from.name"></strong>
+                    <span data-bind="text: message"></span>
+                </p>
+                <p>
+                    <small>
+                        <span data-bind="text: displayDate"></span>
+                        <span data-bind="text: statusType"></span>
+                        <span data-bind="text: story"></span>
+                        <span data-bind="if: to">
+                            <span data-bind="text: to.name"></span>
+                        </span>
+                         <span data-bind="text: id"></span> 
+                    </small>
+                    Link: <div data-bind="if: link">
+                        Name: <span data-bind="text: link.name"></span>
+                        Caption: <span data-bind="text: link.caption"></span>
+                        URL: <span data-bind="text: link.url"></span>
+                        Desc: <span data-bind="text: link.description"></span>
+                        prev: <img data-bind="attr: { src: link.preview}" />
+                    </div>
+                    <div data-bind="if: attachment">
+                        URL: <span data-bind="text: attachment.url"></span>
+                        Type: <span data-bind="text: attachment.type"></span>
+                        Properties: <ul data-bind="foreach: attachment.properties">
+                            <li>
+                                PName: <span data-bind="text: name"></span>
+                                PText: <span data-bind="text: text"></span>
+                                PHref: <span data-bind="text: href"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </p>
+            </li>
+        </ol></script><!-- Main --><script src="js/main.js"></script>

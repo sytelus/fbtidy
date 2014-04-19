@@ -4,7 +4,14 @@
     var expireCacheAfter = 3600;
 
     var FBNewsData = function () {
-        this.posts = ko.observableArray();
+        this.posts = {
+            all: ko.observableArray(),
+            important: ko.observableArray(),
+            photos: ko.observableArray(),
+            fun: ko.observableArray(),
+            informative: ko.observableArray(),
+            doings: ko.observableArray()
+        };
         this.error = ko.observable();
         this.progress = ko.observable();
     };
@@ -30,7 +37,17 @@
 
                     if (response && !response.error) {
                         var fbPosts = utils.map(response.data, function (fbNativePost) { return new FBPost(fbNativePost); });
-                        koExtentions.repopulateObservableArray(self.posts, fbPosts);
+                        koExtentions.repopulateObservableArray(self.posts.all, fbPosts);
+                        koExtentions.repopulateObservableArray(self.posts.important, utils.filter(fbPosts,
+                            function (post) { return post.tabCategory === FBPost.tabCategories.important; }));
+                        koExtentions.repopulateObservableArray(self.posts.photos, utils.filter(fbPosts,
+                            function (post) { return post.tabCategory === FBPost.tabCategories.photos; }));
+                        koExtentions.repopulateObservableArray(self.posts.fun, utils.filter(fbPosts,
+                            function (post) { return post.tabCategory === FBPost.tabCategories.fun; }));
+                        koExtentions.repopulateObservableArray(self.posts.informative, utils.filter(fbPosts,
+                            function (post) { return post.tabCategory === FBPost.tabCategories.informative; }));
+                        koExtentions.repopulateObservableArray(self.posts.doings, utils.filter(fbPosts,
+                            function (post) { return post.tabCategory === FBPost.tabCategories.doings; }));
 
                         self.error(undefined);
                         self.fetchedOn = utils.now();

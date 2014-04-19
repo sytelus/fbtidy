@@ -1,8 +1,8 @@
 ﻿define("common/utils", ["lodash", "moment", "buckets", "jquery", "debug", "accounting", "handlebars", "common/templateHelpers",
     "common/keyCounter", "common/koExtentions",
-    "cryptojs.md5", "cryptojs.base64", "uuidjs", "jquery.ba-bbq", "json3", "mousetrap"],
+    "cryptojs.md5", "cryptojs.base64", "uuidjs", "jquery.ba-bbq", "json3", "mousetrap", "urijs"],
     function (_, moment, buckets, $, debug, accounting, handlebars, templateHelpers, keyCounter, koExtentions,
-        CryptoJS, CryptoJSBase64, UUIDjs, jQueryBbq, json3, mousetrap) {
+        CryptoJS, CryptoJSBase64, UUIDjs, jQueryBbq, json3, mousetrap, URI) {
 
    "use strict";
 
@@ -81,6 +81,10 @@
             return json3.stringify(value);
         },
 
+        parseUrl: function(urlString) {
+            return URI.parse(urlString);
+        },
+
         isDeferredPromise: function (value) {
             //instanceof $.Deferred doesn't seem to work (also if it's promise)
             return !(value === undefined || !$.isFunction(value.done) || !$.isFunction(value.fail));
@@ -133,7 +137,7 @@
             return moment(date).format("MM");
         },
         now: function() {
-            return new moment();
+            return moment();
         },
 
         getEventCurrentTarget: function(event) {
