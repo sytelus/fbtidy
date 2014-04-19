@@ -1,7 +1,7 @@
 ﻿define("FBNewsData", ["facebook", "common/utils", "common/koExtentions", "knockout", "FBPost"], function (FB, utils, koExtentions, ko, FBPost) {
     "use strict";
 
-    var expireCacheAfter = 3600;
+    var expireCacheAfter = 30;
 
     var FBNewsData = function () {
         this.posts = {
@@ -31,6 +31,7 @@
                 }
 
                 self.progress("Getting data from Facebook...");
+                utils.log("Getting data from Facebook...", 5, "info");
                 self.deferred = utils.createDeferred();
                 FB.api("/me/home", function (response) {
                     self.progress(undefined);
@@ -49,11 +50,13 @@
                         koExtentions.repopulateObservableArray(self.posts.doings, utils.filter(fbPosts,
                             function (post) { return post.tabCategory === FBPost.tabCategories.doings; }));
 
+                        utils.log(["Recieved posts", response.length], 5, "success");
                         self.error(undefined);
                         self.fetchedOn = utils.now();
                         self.deferred.resolve(response);
                     }
                     else {
+                        utils.log(["Failed to get posts", response.error.message], 0, "error");
                         self.error(response);
                         self.deferred.reject(response);
                     }
