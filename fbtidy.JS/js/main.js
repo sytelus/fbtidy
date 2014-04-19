@@ -34,10 +34,10 @@
         "facebook": "//connect.facebook.net/en_US/all"
     },
     map: {
-        'urijs': {
-            'IPv6': 'false',
-            'punycode': 'false',
-            'SecondLevelDomains': 'false'
+        "urijs": {
+            "IPv6": "false",
+            "punycode": "false",
+            "SecondLevelDomains": "false"
         }
     },
     shim: {

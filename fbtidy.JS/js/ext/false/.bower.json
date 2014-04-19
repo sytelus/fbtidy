@@ -21,7 +21,6 @@
     "commit": "25f068f586bf7a409038fa39fddb14e6a9cfe842"
   },
   "_source": "git://github.com/ooxi/false.git",
-  "_target": "~0.1.0",
-  "_originalSource": "false",
-  "_direct": true
+  "_target": "*",
+  "_originalSource": "false"
 }

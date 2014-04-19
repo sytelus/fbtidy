@@ -1,68 +1,40 @@
 ﻿define("FBNewsData", ["facebook", "common/utils", "common/koExtentions", "knockout", "FBPost"], function (FB, utils, koExtentions, ko, FBPost) {
     "use strict";
 
-    var expireCacheAfter = 30;
-
     var FBNewsData = function () {
-        this.posts = {
-            all: ko.observableArray(),
+        this.all = {};
+        this.tabs = {
             important: ko.observableArray(),
             photos: ko.observableArray(),
             fun: ko.observableArray(),
             informative: ko.observableArray(),
             doings: ko.observableArray()
         };
-        this.error = ko.observable();
-        this.progress = ko.observable();
     };
 
     var FBNewsDataPrototype = (function () {
         return {
-            load: function (force) {
+            mergePosts: function (response) {
                 var self = this;
 
-                if (utils.isDeferredPending(self.deferred)) {
-                    return self.deferred.promise();
-                }
+                var fbPosts = utils.map(response.data, function (fbNativePost) { return new FBPost(fbNativePost); });
+                var existingPostCount = 0, newPostCount = 0;
+                utils.forEach(fbPosts, function (fbPost) {
+                    if (!self.all[fbPost.id]) {
+                        self.all[fbPost.id] = fbPost;
+                        newPostCount++;
 
-                var isCacheExpired = force || (!self.fetchedOn || (utils.millisecondsSince(self.fetchedOn) / 1000 > expireCacheAfter));
-                if (!isCacheExpired) {
-                    return self.deferred.promise();
-                }
-
-                self.progress("Getting data from Facebook...");
-                utils.log("Getting data from Facebook...", 5, "info");
-                self.deferred = utils.createDeferred();
-                FB.api("/me/home", function (response) {
-                    self.progress(undefined);
-
-                    if (response && !response.error) {
-                        var fbPosts = utils.map(response.data, function (fbNativePost) { return new FBPost(fbNativePost); });
-                        koExtentions.repopulateObservableArray(self.posts.all, fbPosts);
-                        koExtentions.repopulateObservableArray(self.posts.important, utils.filter(fbPosts,
-                            function (post) { return post.tabCategory === FBPost.tabCategories.important; }));
-                        koExtentions.repopulateObservableArray(self.posts.photos, utils.filter(fbPosts,
-                            function (post) { return post.tabCategory === FBPost.tabCategories.photos; }));
-                        koExtentions.repopulateObservableArray(self.posts.fun, utils.filter(fbPosts,
-                            function (post) { return post.tabCategory === FBPost.tabCategories.fun; }));
-                        koExtentions.repopulateObservableArray(self.posts.informative, utils.filter(fbPosts,
-                            function (post) { return post.tabCategory === FBPost.tabCategories.informative; }));
-                        koExtentions.repopulateObservableArray(self.posts.doings, utils.filter(fbPosts,
-                            function (post) { return post.tabCategory === FBPost.tabCategories.doings; }));
-
-                        utils.log(["Recieved posts", response.length], 5, "success");
-                        self.error(undefined);
-                        self.fetchedOn = utils.now();
-                        self.deferred.resolve(response);
+                        self.tabs[fbPost.tabCategory.name]().push(fbPost);
                     }
                     else {
-                        utils.log(["Failed to get posts", response.error.message], 0, "error");
-                        self.error(response);
-                        self.deferred.reject(response);
+                        existingPostCount++;
                     }
                 });
 
-                return self.deferred.promise();
+                if (newPostCount > 0) {
+                    utils.forEach(self.tabs, function (koArray) { koArray.valueHasMutated(); });
+                    utils.log(["New posts", newPostCount], 10, "info");
+                }
             }
         };
     })();

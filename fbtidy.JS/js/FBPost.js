@@ -57,6 +57,9 @@
             message: fbNativePost.message_tags
         };
         this.id = fbNativePost.id;
+        if (!this.id) {
+            throw new Error("post does not have id!");
+        }
 
         this.tabCategory = this.getTabCategory();
     };
