@@ -16,6 +16,7 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="bootply_facebook.html" />
     <Content Include="css\common\fbStyle.css" />
     <Content Include="js\FBNewsFetcher.js" />
     <Content Include="js\FBNewsView.js" />

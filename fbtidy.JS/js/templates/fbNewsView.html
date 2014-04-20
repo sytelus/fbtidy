@@ -29,9 +29,6 @@
     <div data-bind="with: fbNewsFetcher">
         <hr />
         <a href="#" data-bind="click: fetchNext, disable: isInProgress, visible: hasMoreResults" class="fbStyleButton">More</a>
-        <div class="pull-right">
-            <fb:login-button data-scope="read_stream" autologoutlink="true" size="large" show-faces="false" max-rows="1">Login with Facebook</fb:login-button>
-        </div>
     </div>
 </div>
 
