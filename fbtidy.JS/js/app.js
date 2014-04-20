@@ -9,15 +9,16 @@
     domReady(function () {
         utils.log(["Loaded on: ", new Date()]);
 
+        fbNewsView = new FBNewsView($("#main .fbNewsView").first());
+
         var authorizeModal = $("#authorizeModal");
         var fbInit = new FBInit("241567999362524", function () {
+            fbNewsView.load();
             authorizeModal.modal("hide");
-            fbNewsView = new FBNewsView($("#news").first()[0]);
-            fbNewsView.refresh();
         }, function () {
+            fbNewsView.unload();
             authorizeModal.modal({ backdrop: "static" }).modal("show");
         });
-        
 
         globalEvents(utils);
 

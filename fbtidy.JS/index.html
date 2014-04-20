@@ -67,42 +67,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div id="news">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#news_important" data-toggle="tab">1stThing <span data-bind="text: newsData.tabs.important().length" class="badge" /></a></li>
-                            <li><a href="#news_photos" data-toggle="tab">Photos <span data-bind="text: newsData.tabs.photos().length" class="badge" /></a></li>
-                            <li><a href="#news_fun" data-toggle="tab">Fun <span data-bind="text: newsData.tabs.fun().length" class="badge" /></a></li>
-                            <li><a href="#news_informative" data-toggle="tab">Informative <span data-bind="text: newsData.tabs.informative().length" class="badge" /></a></li>
-                            <li><a href="#news_doings" data-toggle="tab">Doings <span data-bind="text: newsData.tabs.doings().length" class="badge" /></a></li>
-                        </ul>
-
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="news_important">
-                                <div data-bind="template: { name: 'postsTemplate', data: $data.newsData.tabs.important}"></div>
-                            </div>
-                            <div class="tab-pane" id="news_photos">
-                                <div data-bind="template: { name: 'postsTemplate', data: $data.newsData.tabs.photos}"></div>
-                            </div>
-                            <div class="tab-pane" id="news_fun">
-                                <div data-bind="template: { name: 'postsTemplate', data: $data.newsData.tabs.fun}"></div>
-                            </div>
-                            <div class="tab-pane" id="news_informative">
-                                <div data-bind="template: { name: 'postsTemplate', data: $data.newsData.tabs.informative}"></div>
-                            </div>
-                            <div class="tab-pane" id="news_doings">
-                                <div data-bind="template: { name: 'postsTemplate', data: $data.newsData.tabs.doings}"></div>
-                            </div>
-                        </div>
-                        <div data-bind="with: newsFetcher">
-                            <hr />
-                            <a href="#" data-bind="click: fetchNext, disable: isInProgress, visible: hasMoreResults" class="fbStyleButton">More</a>
-                            <div class="pull-right">
-                                <fb:login-button data-scope="read_stream" autologoutlink="true" size="large" show-faces="false" max-rows="1">Login with Facebook</fb:login-button>
-                            </div>
-                        </div>
-                    </div><!--news-->
+                    <div class="fbNewsView">
+                    </div><!--fb news-->
                 </div>
             </div>
         </div>
@@ -114,29 +80,6 @@
         <div class="statusBox">
         </div>
     </footer>
-
-    <!-- ko templates -->
-    <script type="text/html" id="postsTemplate">
-        <ol class="posts-list" data-bind="foreach: $data">
-            <li>
-                <p style="vertical-align: top">
-                    <span data-bind="if: link.url">
-                        <a data-bind="attr: { href: link.url}"><img data-bind="attr: { src: link.preview}"></a>
-                    </span>
-                    <span>
-                        <strong data-bind="text: from.name"></strong> <span data-bind="text: message" />
-                    </span>
-                    <small class="text-right small text-muted"><span data-bind="text: displayDate" /></small>
-                    <div data-bind="if: link.url">
-                        <small>
-                            <span data-bind="text: link.caption" />
-                            <small><span data-bind="text: link.description" /></small>
-                        </small>
-                    </div>
-                </p>
-            </li>
-        </ol>
-    </script>
 
     <!-- Full screen authorize modal -->
     <div class="modal fade out" id="authorizeModal" tabindex="-1" role="dialog" aria-hidden="true">
