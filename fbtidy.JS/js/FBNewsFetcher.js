@@ -8,9 +8,9 @@
 
     var FBNewsFetcherPrototype = (function () {
         var fetchDataFBSdk = function () {
-                var deferred = utils.createDeferred();
+            var deferred = utils.createDeferred();
 
-                FB.api("/me/home", function (response) {
+            FB.api("/me/home", {limit:200}, function (response) {
                     if (response && !response.error) {
                         deferred.resolve(response);
                     }
