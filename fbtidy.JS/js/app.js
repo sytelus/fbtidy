@@ -23,5 +23,9 @@
         globalEvents(utils);
 
         $("#footer .statusBox").statusBox();
+
+        if (location.hash) {
+            $(window).hashchange();
+        }
     });
 });

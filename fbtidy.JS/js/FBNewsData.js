@@ -3,13 +3,8 @@
 
     var FBNewsData = function () {
         this.all = {};
-        this.tabs = {
-            important: ko.observableArray(),
-            photos: ko.observableArray(),
-            fun: ko.observableArray(),
-            informative: ko.observableArray(),
-            doings: ko.observableArray()
-        };
+        this.filtered = ko.observableArray();
+        this.filterName = ko.observable("important");
     };
 
     var FBNewsDataPrototype = (function () {
@@ -23,20 +18,34 @@
                     if (!self.all[fbPost.id]) {
                         self.all[fbPost.id] = fbPost;
                         newPostCount++;
-
-                        self.tabs[fbPost.tabCategory.name]().push(fbPost);
                     }
                     else {
                         existingPostCount++;
                     }
                 });
 
-                if (newPostCount > 0) {
-                    utils.forEach(self.tabs, function (koArray) { koArray.valueHasMutated(); });
-                    utils.log(["New posts", newPostCount], 10, "info");
-                }
+                utils.log(["New posts", newPostCount], 10, "info");
+
+                self.setFilter(self.filterName());
 
                 return newPostCount;
+            },
+            setFilter: function (filterName, ignoreIfAlreadySet) {
+                var self = this;
+
+                if (ignoreIfAlreadySet && self.filterName() === filterName)
+                    return;
+
+                self.filtered().length = 0;
+                utils.forEach(self.all, function (fbPost) {
+                    if (fbPost.tabCategory.name === filterName) {
+                        self.filtered().push(fbPost);
+                    }
+                });
+
+                self.filtered.valueHasMutated();
+
+                self.filterName(filterName);
             }
         };
     })();
