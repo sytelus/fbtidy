@@ -8,16 +8,12 @@
 <!--<![endif]-->
 <head>
     <meta charset="utf-8" />
+    
     <!-- Ask browser to use best compatibility mode -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <!-- TODO: Is this good? Ask browser to not cache -->
-    <meta http-equiv="Cache-Control" content="no-cache, private, pre-check=0, post-check=0, max-age=0" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-
-    <title>fbTidy</title>
-    <meta name="description" content="Personal Finance with Smarts" />
+    <title>fbTidy - Your Clean Simple Facebooks</title>
+    <meta name="description" content="fbTidy - Your Clean Simple Facebook" />
 
 
     <!-- generic feature phones -->
@@ -48,38 +44,113 @@
     <!--[if lt IE 7]>
         <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
+
     <!-- Required by Facebook JavaScript SDK -->
     <div id="fb-root"></div>
+  
+    <div class="wrapper">
+        <div class="box">
+            <div class="row row-offcanvas row-offcanvas-left">
+                <!-- sidebar -->
+                <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
 
-    <!-- Top nav bar -->
-    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header" style="width:100%">
-                <a class="navbar-brand" href="#">fbTidy</a>
-                <div class="navbar-brand pull-right">
-                    <fb:login-button data-scope="read_stream" autologoutlink="true" size="medium" show-faces="false">Login with Facebook</fb:login-button>
+                    <ul class="nav">
+                        <li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
+                    </ul>
+
+                    <ul class="nav hidden-xs" id="lg-menu">
+                        <li class="active"><a href="#important"><i class="glyphicon glyphicon-star"></i> First Things First</a></li>
+                        <li><a href="#photos"><i class="glyphicon glyphicon-picture"></i> Photo Posts</a></li>
+                        <li><a href="#fun"><i class="glyphicon glyphicon-glass"></i> Fun Posts</a></li>
+                        <li><a href="#informative"><i class="glyphicon glyphicon-book"></i> Informative Posts</a></li>
+                        <li><a href="#doings"><i class="glyphicon glyphicon-road"></i> Doings</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-paperclip"></i> Saved</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-refresh"></i> Refresh</a></li>
+                    </ul>
+                    <ul class="list-unstyled hidden-xs" id="sidebar-footer">
+                        <li>
+                            <a href="http://www.fbTidy.com"><h3>fbTidy</h3> <i class="glyphicon glyphicon-heart-empty"></i> fbTidy</a>
+                        </li>
+                    </ul>
+
+                    <!-- tiny only nav-->
+                    <ul class="nav visible-xs" id="xs-menu">
+                        <li><a href="#important" class="text-center"><i class="glyphicon glyphicon-list-star"></i></a></li>
+                        <li><a href="#photos" class="text-center"><i class="glyphicon glyphicon-picture"></i></a></li>
+                        <li><a href="#fun" class="text-center"><i class="glyphicon glyphicon-glass"></i></a></li>
+                        <li><a href="#informative" class="text-center"><i class="glyphicon glyphicon-book"></i></a></li>
+                        <li><a href="#doings" class="text-center"><i class="glyphicon glyphicon-road"></i></a></li>
+                        <li><a href="#" class="text-center"><i class="glyphicon glyphicon-paperclip"></i></a></li>
+                        <li><a href="#" class="text-center"><i class="glyphicon glyphicon-refresh"></i></a></li>
+                    </ul>
                 </div>
+                <!-- /sidebar -->
+                <!-- main right col -->
+                <div class="column col-sm-10 col-xs-11" id="main">
+
+                    <!-- top nav -->
+                    <div class="navbar navbar-blue navbar-static-top">
+                        <div class="navbar-header">
+                            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a href="/" class="navbar-brand logo">fbTidy</a>
+                        </div>
+                        <nav class="collapse navbar-collapse" role="navigation">
+                            <form class="navbar-form navbar-left">
+                                <div class="input-group input-group-sm" style="max-width:360px;">
+                                    <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <a href="#"><i class="glyphicon glyphicon-home"></i> Home</a>
+                                </li>
+                                <li>
+                                    <a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Post</a>
+                                </li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i></a>
+                                    <ul class="dropdown-menu">
+                                        <li><fb:login-button data-scope="read_stream" autologoutlink="true" size="medium" show-faces="false">Login with Facebook</fb:login-button></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- /top nav -->
+
+                    <div class="padding">
+                        <div class="full col-sm-9">
+                            <!-- content -->
+                            <div class="row">
+                                <div class="col-sm-12 fbNewsView">
+                                </div>
+                            </div><!--/row-->
+                        </div><!-- /col-9 -->
+                    </div><!-- /padding -->
+                </div>
+                <!-- /main -->
             </div>
         </div>
     </div>
-
-    
-    <!-- Main -->
-    <div id="main">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="fbNewsView">
-                    </div><!--fb news-->
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Main -->
 
     <footer id="footer">
-        <hr />
-        <div class="statusBox">
+        <div>
+            <hr />
+            <div class="statusBox">
+            </div>
+            <p>
+                <a href="#" class="pull-right">©Copyright fbTidy.com Inc, 2014</a>
+            </p>
         </div>
     </footer>
 
@@ -108,7 +179,7 @@
         </div>
     </div>
 
-    <!-- Main -->
+    <!-- JS entry point -->
     <script data-main="js/main" src="js/ext/requirejs/require.js"></script>
 </body>
 </html>

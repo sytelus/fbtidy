@@ -16,8 +16,7 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="bootply_facebook.html" />
-    <Content Include="css\common\fbStyle.css" />
+    <Content Include="js\templates\bootply_facebook.html" />
     <Content Include="js\FBNewsFetcher.js" />
     <Content Include="js\FBNewsView.js" />
     <Content Include="Gruntfile.js" />
@@ -58,6 +57,7 @@
     <Content Include="css\common\common.less" />
     <Content Include="css\common\components.less" />
     <Content Include="css\icons.less" />
+    <None Include="css\common\facebook.theme.less" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
