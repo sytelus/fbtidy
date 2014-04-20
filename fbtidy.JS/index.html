@@ -54,50 +54,56 @@
     <!-- Top nav bar -->
     <div class="navbar navbar-inverse navbar-static-top" role="navigation">
         <div class="container">
-            <div class="navbar-header" style="width:100%">
+            <div class="navbar-header">
                 <a class="navbar-brand" href="#">fbTidy</a>
                 <p class="navbar-brand pull-right"><span class="text-right small">Making World Simple</span></p>
             </div>
         </div>
     </div>
 
+    
     <!-- Main -->
     <div id="main">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
-                <div id="news" style="margin: 1em 1em 1em 1em">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#news_important" data-toggle="tab">1stThing <span data-bind="text: newsData.tabs.important().length" class="badge" /></a></li>
-                        <li><a href="#news_photos" data-toggle="tab">Photos <span data-bind="text: newsData.tabs.photos().length" class="badge" /></a></li>
-                        <li><a href="#news_fun" data-toggle="tab">Fun <span data-bind="text: newsData.tabs.fun().length" class="badge" /></a></li>
-                        <li><a href="#news_informative" data-toggle="tab">Informative <span data-bind="text: newsData.tabs.informative().length" class="badge" /></a></li>
-                        <li><a href="#news_doings" data-toggle="tab">Doings <span data-bind="text: newsData.tabs.doings().length" class="badge" /></a></li>
-                    </ul>
+                <div class="col-md-12">
+                    <div id="news">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#news_important" data-toggle="tab">1stThing <span data-bind="text: newsData.tabs.important().length" class="badge" /></a></li>
+                            <li><a href="#news_photos" data-toggle="tab">Photos <span data-bind="text: newsData.tabs.photos().length" class="badge" /></a></li>
+                            <li><a href="#news_fun" data-toggle="tab">Fun <span data-bind="text: newsData.tabs.fun().length" class="badge" /></a></li>
+                            <li><a href="#news_informative" data-toggle="tab">Informative <span data-bind="text: newsData.tabs.informative().length" class="badge" /></a></li>
+                            <li><a href="#news_doings" data-toggle="tab">Doings <span data-bind="text: newsData.tabs.doings().length" class="badge" /></a></li>
+                        </ul>
 
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="news_important">
-                            <div data-bind="template: { name: 'postsTemplate', data: $data.newsData.tabs.important}"></div>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="news_important">
+                                <div data-bind="template: { name: 'postsTemplate', data: $data.newsData.tabs.important}"></div>
+                            </div>
+                            <div class="tab-pane" id="news_photos">
+                                <div data-bind="template: { name: 'postsTemplate', data: $data.newsData.tabs.photos}"></div>
+                            </div>
+                            <div class="tab-pane" id="news_fun">
+                                <div data-bind="template: { name: 'postsTemplate', data: $data.newsData.tabs.fun}"></div>
+                            </div>
+                            <div class="tab-pane" id="news_informative">
+                                <div data-bind="template: { name: 'postsTemplate', data: $data.newsData.tabs.informative}"></div>
+                            </div>
+                            <div class="tab-pane" id="news_doings">
+                                <div data-bind="template: { name: 'postsTemplate', data: $data.newsData.tabs.doings}"></div>
+                            </div>
                         </div>
-                        <div class="tab-pane" id="news_photos">
-                            <div data-bind="template: { name: 'postsTemplate', data: $data.newsData.tabs.photos}"></div>
+                        <div data-bind="with: newsFetcher">
+                            <hr />
+                            <a href="#" data-bind="click: fetchNext, disable: isInProgress, visible: hasMoreResults" class="fbStyleButton">More</a>
+                            <div class="pull-right">
+                                <fb:login-button data-scope="read_stream" autologoutlink="true" size="large" show-faces="false" max-rows="1">Login with Facebook</fb:login-button>
+                            </div>
                         </div>
-                        <div class="tab-pane" id="news_fun">
-                            <div data-bind="template: { name: 'postsTemplate', data: $data.newsData.tabs.fun}"></div>
-                        </div>
-                        <div class="tab-pane" id="news_informative">
-                            <div data-bind="template: { name: 'postsTemplate', data: $data.newsData.tabs.informative}"></div>
-                        </div>
-                        <div class="tab-pane" id="news_doings">
-                            <div data-bind="template: { name: 'postsTemplate', data: $data.newsData.tabs.doings}"></div>
-                        </div>
-                    </div>
-                    <div data-bind="with: newsFetcher">
-                        <hr />
-                        <a href="#" data-bind="click: fetchNext, disable: isInProgress, visible: hasMoreResults" class="fbStyleButton" style="margin: 1em 1em 1em 1em">More</a>
-                    </div>
-                </div><!--news-->
+                    </div><!--news-->
+                </div>
             </div>
         </div>
     </div>
@@ -106,9 +112,6 @@
     <footer id="footer">
         <hr />
         <div class="statusBox">
-        </div>
-        <div class="text-right" style="margin: 1em 1em 1em 1em">
-            <fb:login-button data-scope="read_stream" autologoutlink="true" size="small" show-faces="false" max-rows="1">Login with Facebook</fb:login-button>
         </div>
     </footer>
 

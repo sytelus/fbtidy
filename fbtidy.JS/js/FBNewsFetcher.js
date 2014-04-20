@@ -10,7 +10,7 @@
         var fetchDataFBSdk = function () {
                 var deferred = utils.createDeferred();
 
-                FB.api("/me/home", {limit:200}, function (response) {
+                FB.api("/me/home", function (response) {
                     if (response && !response.error) {
                         deferred.resolve(response);
                     }
