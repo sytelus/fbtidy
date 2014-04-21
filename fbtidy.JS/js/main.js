@@ -48,6 +48,9 @@
         //    deps: ["jquery"],
         //    exports: "jQuery"
         //},
+        "urijs": {
+            deps: ["false"]
+        },
         "bootstrap": {
             deps: ["jquery"],
             exports: "jQuery"

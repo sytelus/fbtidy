@@ -122,7 +122,7 @@ module.exports = function (grunt) {
                     replaceRequireScript: [{
                         files: ['<%= paths.dist %>/index.html'],
                         module: 'main',
-                        modulePath: '/' + '<%= paths.dist %>/js/mainall'
+                        modulePath: '/js/mainall'
                     }],
 
                     normalizeDirDefines: 'all', //http://requirejs.org/docs/optimization.html#turbo
@@ -189,8 +189,8 @@ module.exports = function (grunt) {
         'cssmin',
         'copy:dist',
         'requirejs',
-        'htmlrefs',
-        'htmlmin'
+        'htmlrefs'//,
+        //'htmlmin'
     ]);
 
     grunt.registerTask('test', [
