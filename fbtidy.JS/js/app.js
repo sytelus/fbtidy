@@ -4,7 +4,7 @@
     function (domReady, $, utils, statusBox, globalEvents, FBInit, FBNewsView) {
     "use strict";
 
-    var fbNewsView;
+    var fbNewsView, fbInit;
 
     domReady(function () {
         utils.log(["Loaded on: ", new Date()]);
@@ -12,7 +12,7 @@
         fbNewsView = new FBNewsView($("#main .fbNewsView").first());
 
         var authorizeModal = $("#authorizeModal");
-        var fbInit = new FBInit("241567999362524", function () {
+        fbInit = new FBInit("241567999362524", function () {
             fbNewsView.load();
             authorizeModal.modal("hide");
         }, function () {

@@ -15,8 +15,8 @@
                 var fbPosts = utils.map(response.data, function (fbNativePost) { return new FBPost(fbNativePost); });
                 var existingPostCount = 0, newPostCount = 0;
                 utils.forEach(fbPosts, function (fbPost) {
-                    if (!self.all[fbPost.id]) {
-                        self.all[fbPost.id] = fbPost;
+                    if (!self.all[fbPost.dupHash]) {
+                        self.all[fbPost.dupHash] = fbPost;
                         newPostCount++;
                     }
                     else {
@@ -33,8 +33,9 @@
             setFilter: function (filterName, ignoreIfAlreadySet) {
                 var self = this;
 
-                if (ignoreIfAlreadySet && self.filterName() === filterName)
+                if (ignoreIfAlreadySet && self.filterName() === filterName) {
                     return;
+                }
 
                 self.filtered().length = 0;
                 utils.forEach(self.all, function (fbPost) {

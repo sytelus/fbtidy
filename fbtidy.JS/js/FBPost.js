@@ -30,7 +30,11 @@
         this.to = fbNativePost.to || { name: "(no to name)" };
         this.createdOn = fbNativePost.created_time;
         this.updatedOn = fbNativePost.updated_time;
-        this.displayDate = utils.parseDate(fbNativePost.created_time).fromNow();
+
+        var createdOnDate = utils.parseDate(fbNativePost.created_time);
+        this.createdOnUnixTimestamp = createdOnDate.unix();
+        this.displayDate = createdOnDate.fromNow();
+
         this.link = {
             caption: fbNativePost.caption,
             description: fbNativePost.caption,
@@ -47,7 +51,7 @@
             urlInfo: getUrlInfo(fbNativePost.source),
             type: fbNativePost.type
         };
-        this.locationPage = fbNativePost.place;
+        this.locationPlace = fbNativePost.place;
         this.shareCount = fbNativePost.shares && fbNativePost.shares.count;
         this.statusType = fbNativePost.status_type;
         this.story = fbNativePost.story;
@@ -60,6 +64,11 @@
         if (!this.id) {
             throw new Error("post does not have id!");
         }
+
+        this.dupHash = utils.getMD5Hash([this.id, this.from, this.to, this.message, this.story, this.createdOn, this.updatedOn,
+            this.locationPlace, this.statusType, this.link.url, this.attachment.objectId, this.attachment.url, this.attachment.type//,
+            //(this.tags.to || []).join("\t"), (this.tags.alongWith || []).join("\t"), (this.tags.message || []).join("\t")
+            ].join("\t"));
 
         this.tabCategory = this.getTabCategory();
     };

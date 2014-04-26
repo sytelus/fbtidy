@@ -1,4 +1,4 @@
-﻿define("FBInit", ["facebook", "common/utils"], function (FB, utils) {
+﻿define("FBInit", ["facebook" /*, "common/utils" */], function (FB /*, utils */) {
     "use strict";
 
     var FBInit = function (appId, onConnected, onDisconnected) {

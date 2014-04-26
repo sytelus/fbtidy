@@ -145,6 +145,7 @@
         },
 
         FormatStringDateLocalized: "L",
+        FormatStringISO8601: undefined,
         formateDate: function(date, formatString) {
             return moment(date).format(formatString);
         },
@@ -275,7 +276,17 @@
             }
             return result;
         },
-
+        safeApply: function (value, f, argsArray) {
+            if (value) {
+                if ($.isFunction(f)) {
+                    return f.apply(value, argsArray);
+                }
+                else {
+                    return value[f];
+                }
+            }
+            //else return undefined
+        },
         trim: $.trim,
         parseInt: function(value) {
             return parseInt(value, 10);
@@ -288,6 +299,9 @@
         },
         fromNativeDate: function(value) {
             return moment(value);
+        },
+        fromUnixTimestamp: function (value) {    //usually 10 digits like 1398132187
+            return moment.unix(value);
         },
         toNativeDate: function(value) {
             return value.toDate();
@@ -336,6 +350,14 @@
             return _.map(obj, function (value, key) { return { key: key, value: value }; });
         },
         keys: _.keys,
+        getUrlQueryParams: function (url) {
+            if (url) {
+                return URI.parseQuery(url);
+            }
+            else {
+                return {};
+            }
+        },
         compareStrings: function (string1, string2, ignoreCase, useLocale) {
             if (!!ignoreCase) {
                 if (!!useLocale) {

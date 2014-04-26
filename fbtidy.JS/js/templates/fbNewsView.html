@@ -2,7 +2,13 @@
     <div data-bind="template: { name: 'postsTemplate', data: $data.fbNewsData.filtered}"></div>
     <div data-bind="with: fbNewsFetcher">
         <hr />
-        <button data-bind="click: fetchNext, visible: hasMoreResults() && !isInProgress()" class="btn btn-primary pull-right" type="button">More</button>
+        <div class="pull-right">
+            <button data-bind="click: fetchNext, visible: hasMoreResults() && !isInProgress()" 
+                    class="btn btn-primary" type="button">More</button>
+            <p class="small text-muted">
+                Until <span data-bind="text: minPostDate"/>
+            </p>
+        </div>
     </div>
 </div>
 

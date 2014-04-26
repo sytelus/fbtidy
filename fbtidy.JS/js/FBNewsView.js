@@ -6,8 +6,9 @@
     var setNewsFilter = function (fbNewsData, fragment, ignoreIfAlreadySet) {
         var params = fragment !== undefined ? $.deparam(fragment) : $.deparam.fragment();
 
-        if (params.p !== "news")
+        if (params.p !== "news") {
             return;
+        }
 
         fbNewsData.setFilter(params.tab || "important", ignoreIfAlreadySet);
 
@@ -20,8 +21,9 @@
 
         //event handler for hash change for jslink anchors
         $(window).on("hashchange", function (e) {
-            if (!self.viewModel)
+            if (!self.viewModel) {
                 return;
+            }
 
             var target = e.getState("p") || "news";
 
@@ -40,8 +42,9 @@
             load: function(forceLoad) {
                 var self = this;
 
-                if (self.isBeingLoaded || (self.isLoaded && !forceLoad))
+                if (self.isBeingLoaded || (self.isLoaded && !forceLoad)) {
                     return;
+                }
 
                 self.isBeingLoaded = true;
 
@@ -65,8 +68,9 @@
             unload: function(forceUnload) {
                 var self = this;
 
-                if (!self.isLoaded && !forceUnload)
+                if (!self.isLoaded && !forceUnload) {
                     return;
+                }
 
                 self.hostElement.html("");
                 self.viewModel = undefined;
