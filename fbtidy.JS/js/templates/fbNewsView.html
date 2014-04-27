@@ -5,9 +5,9 @@
         <div class="pull-right">
             <button data-bind="click: fetchNext, visible: hasMoreResults() && !isInProgress()" 
                     class="btn btn-primary" type="button">More</button>
-            <p class="small text-muted">
-                Until <span data-bind="text: minPostDate"/>
-            </p>
+            <div data-bind="visible: isInProgress()">
+                <img src="/images/fbloading.gif" width="48" height="24" /> Finding gems from the junk in Facebook...
+            </div>
         </div>
     </div>
 </div>

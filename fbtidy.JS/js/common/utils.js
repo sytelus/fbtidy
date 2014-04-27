@@ -1,23 +1,53 @@
 ﻿define("common/utils", ["lodash", "moment", "buckets", "jquery", "debug", "accounting", "handlebars", "common/templateHelpers",
     "common/keyCounter", "common/koExtentions",
-    "cryptojs.md5", "cryptojs.base64", "uuidjs", "jquery.ba-bbq", "json3", "mousetrap", "urijs"],
+    "cryptojs.md5", "cryptojs.base64", "uuidjs", "jquery.ba-bbq", "json3", "mousetrap"],
     function (_, moment, buckets, $, debug, accounting, handlebars, templateHelpers, keyCounter, koExtentions,
-        CryptoJS, CryptoJSBase64, UUIDjs, jQueryBbq, json3, mousetrap, URI) {
+        CryptoJS, CryptoJSBase64, UUIDjs, jQueryBbq, json3, mousetrap) {
 
-   "use strict";
+    "use strict";
 
-   accounting.settings.currency.format = {
-       pos: "%s %v",   // for positive values, eg. "$ 1.00" (required)
-       neg: "%s (%v)", // for negative values, eg. "$ (1.00)" [optional]
-       zero: "%s %v"  // for zero values, eg. "$  --" [optional]
-   };
+    accounting.settings.currency.format = {
+        pos: "%s %v",   // for positive values, eg. "$ 1.00" (required)
+        neg: "%s (%v)", // for negative values, eg. "$ (1.00)" [optional]
+        zero: "%s %v"  // for zero values, eg. "$  --" [optional]
+    };
 
         //Fix textarea CR/LF issue - http://api.jquery.com/val/
-   $.valHooks.textarea = {
-       get: function( elem ) {
-           return elem.value.replace( /\r?\n/g, "\r\n" );
-       }
-   };
+    $.valHooks.textarea = {
+        get: function( elem ) {
+            return elem.value.replace( /\r?\n/g, "\r\n" );
+        }
+    };
+
+    //http://james.padolsey.com/javascript/parsing-urls-with-the-dom/
+    var parseUrl = function(url) {
+            var a =  document.createElement("a");
+            a.href = url;
+            return {
+                source: url,
+                protocol: a.protocol.replace(":",""),
+                hostname: a.hostname,
+                host: a.host,
+                port: a.port,
+                query: a.search,
+                params: (function(){
+                    var ret = {},
+                        seg = a.search.replace(/^\?/,"").split("&"),
+                        len = seg.length, i = 0, s;
+                    for (;i<len;i++) {
+                        if (!seg[i]) { continue; }
+                        s = seg[i].split("=");
+                        ret[s[0]] = s[1];
+                    }
+                    return ret;
+                })(),
+                file: (a.pathname.match(/\/([^\/?#]+)$/i) || [,""])[1],
+                hash: a.hash.replace("#",""),
+                path: a.pathname.replace(/^([^\/])/,"/$1"),
+                relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [,""])[1],
+                segments: a.pathname.replace(/^\//,"").split("/")
+            };
+        };
 
     var utilsInstance = {
         compareFunction: function(isReverse, mapFunction, thisArg) {
@@ -79,10 +109,6 @@
         
         stringify: function(value) {
             return json3.stringify(value);
-        },
-
-        parseUrl: function(urlString) {
-            return URI.parse(urlString);
         },
 
         isDeferredPromise: function (value) {
@@ -276,10 +302,10 @@
             }
             return result;
         },
-        safeApply: function (value, f, argsArray) {
+        safeApply: function (value, f, thisArg, argsArray) {
             if (value) {
                 if ($.isFunction(f)) {
-                    return f.apply(value, argsArray);
+                    return f.apply(thisArg || value, argsArray || [value]);
                 }
                 else {
                     return value[f];
@@ -350,9 +376,10 @@
             return _.map(obj, function (value, key) { return { key: key, value: value }; });
         },
         keys: _.keys,
+        parseUrl: parseUrl,
         getUrlQueryParams: function (url) {
             if (url) {
-                return URI.parseQuery(url);
+                return parseUrl(url).params;
             }
             else {
                 return {};
@@ -372,6 +399,9 @@
 
             return string1 === string2;
         },
+
+
+
         triggerEvent: function (source, eventName, eventDataArray) {
             $(source || document).triggerHandler(eventName, eventDataArray);
         },

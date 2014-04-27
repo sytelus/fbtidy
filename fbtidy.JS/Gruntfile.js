@@ -100,7 +100,7 @@ module.exports = function (grunt) {
         requirejs: {
             dist: {
                 options: {
-                    almond: true,
+                    //almond: true,
                     //wrap: true,  //https://github.com/asciidisco/grunt-requirejs/blob/master/docs/almondIntegration.md#require-function-not-found-after-almond-integration
 
                     name: 'main',
@@ -108,6 +108,12 @@ module.exports = function (grunt) {
                     mainConfigFile: '<%= paths.src %>/js/main.js',
                     out: '<%= paths.dist %>/js/mainall.js',
 
+                    paths: {
+                        facebook: 'empty:',
+                        requireLib: '<%= paths.src %>/ext/requirejs/require'
+                    },
+
+                    include: ['requireLib'],
 
                     optimize: 'none',
                     /*
@@ -119,6 +125,7 @@ module.exports = function (grunt) {
                     preserveLicenseComments: false, // required to support SourceMaps. http://requirejs.org/docs/errors.html#sourcemapcomments
                     */
                     
+                    //Only when almond: true
                     replaceRequireScript: [{
                         files: ['<%= paths.dist %>/index.html'],
                         module: 'main',

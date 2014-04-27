@@ -26,7 +26,6 @@
     "mousetrap": "latest",
     "typeahead.js": "latest",
     "typeahead-less": "git://github.com/hyspace/typeahead.js-bootstrap3.less",
-    "URIjs": "latest",
     "false": "latest"
   }
 }

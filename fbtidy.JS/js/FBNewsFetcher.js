@@ -1,4 +1,4 @@
-﻿define("FBNewsFetcher", ["facebook", "common/utils", "jquery", "FBNewsData", "knockout"], function (FB, utils, $, FBNewsData, ko) {
+﻿define("FBNewsFetcher", ["facebook", "common/utils", "FBNewsData", "knockout"], function (FB, utils, FBNewsData, ko) {
     "use strict";
 
     var FBNewsFetcher = function (fbNewsData) {
@@ -11,15 +11,18 @@
             var deferred = utils.createDeferred();
 
             FB.api("/me/home", { limit: 100, until: untilUnixTimestamp }, function (response) {
-                    if (response && !response.error) {
-                        deferred.resolve(response);
-                    }
-                    else {
-                        deferred.reject(response);
-                    }
-                });
+                if (response && !response.error) {
+                    deferred.resolve(response);
+                }
+                else {
+                    deferred.reject(response);
+                }
+            });
 
-                return deferred.promise();
+            return deferred.promise();
+            },
+            fbNativeDateToUnixTimestamp = function (fbNativePost) { 
+                return utils.parseDate(fbNativePost.created_time).unix(); 
             };
             /*
             fetchDataAjax = function (pageDataUrl) {
@@ -74,25 +77,34 @@
                 }
 
                 self.isInProgress(true);
-                utils.log("Getting data from Facebook...", 5, "info");
 
-                self.deferredPromise = fetchDataFBSdk(self.minPostDateUnix() || utils.now().unix());
+                var untilUnixTimestamp = (self.minPostDateUnix() || utils.now().unix()) - 1;
+                utils.log(["Getting data from Facebook...", untilUnixTimestamp]);
+
+                self.deferredPromise = fetchDataFBSdk(untilUnixTimestamp);
 
                 self.deferredPromise
                 .done(function (response) {
                     self.error(undefined);
 
                     var newPostCount = self.fbNewsData.mergePosts(response);
-                    utils.log(["Recieved posts", response.data.length, "new posts", newPostCount], 5, "success");
 
-                    self.minPostDateUnix(utils.safeApply(utils.min(self.fbNewsData.all, "createdOnUnixTimestamp"),
-                        "createdOnUnixTimestamp"));
-                    self.maxPostDateUnix(utils.safeApply(utils.max(self.fbNewsData.all, "createdOnUnixTimestamp"),
-                        "createdOnUnixTimestamp"));
+                    if (response.data && response.data.length > 0) {
+                        self.minPostDateUnix(utils.safeApply(utils.min(response.data, fbNativeDateToUnixTimestamp), fbNativeDateToUnixTimestamp));
+                        self.maxPostDateUnix(utils.safeApply(utils.max(response.data, fbNativeDateToUnixTimestamp), fbNativeDateToUnixTimestamp));
+                        self.hasMoreResults(true);
+                    }
+                    else {
+                        //self.minPostDateUnix(self.minPostDateUnix() - 3600 * 24);
+                        //leave maxPostDateUnix as-is
+                        self.hasMoreResults(false);
+                    }
 
                     self.previousPageUrl((response.paging && response.paging.previous) || null);
                     self.nextPageUrl((response.paging && response.paging.next) || null);
-                    self.hasMoreResults(true);
+
+                    utils.log(["Recieved posts", response.data.length, "new posts", newPostCount,
+                        self.minPostDateUnix(), self.maxPostDateUnix(), self.previousPageUrl(), self.nextPageUrl()]);
                 })
                 .fail(function (response) {
                     utils.log(["Failed to get posts", response.error.message], 0, "error");

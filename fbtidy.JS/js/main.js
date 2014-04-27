@@ -30,15 +30,7 @@
         "mousetrap": "ext/mousetrap/mousetrap",
         "typeahead": "ext/typeahead.js/dist/typeahead.bundle",
         "false": "ext/false/false",
-        "urijs": "ext/URIjs/src/URI",
         "facebook": "//connect.facebook.net/en_US/all"
-    },
-    map: {
-        "urijs": {
-            "IPv6": "false",
-            "punycode": "false",
-            "SecondLevelDomains": "false"
-        }
     },
     shim: {
         "debug": {
@@ -48,9 +40,6 @@
         //    deps: ["jquery"],
         //    exports: "jQuery"
         //},
-        "urijs": {
-            deps: ["false"]
-        },
         "bootstrap": {
             deps: ["jquery"],
             exports: "jQuery"

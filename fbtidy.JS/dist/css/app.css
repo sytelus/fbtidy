@@ -8588,3 +8588,6 @@ small.text-muted {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=1);
   /* IE6-8 fallback on horizontal gradient */
 }
+.fbloading {
+  display: none;
+}
